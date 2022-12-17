@@ -15,13 +15,6 @@ body
     background-color: var(--pallete1);
 }
 
-.calculator-container{
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
-    background-color: var(--pallete1);
-    width: 100%;
-    height: 100vh;
-}
-
 p
 {
     margin: 0;
