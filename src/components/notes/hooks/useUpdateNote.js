@@ -8,10 +8,13 @@ export default function useUpdateNote()
 
     const update = (note) => {
         const _note = {...note, isFresh : false, lastModified : today()};
-
+        dispatch({type : 'global/isLoading', payload : true});
         axios.put(notes_url, _note).then(result => {
             if(result.status === 200)
+            {
                 dispatch({type : 'notes/update', payload : result.data});
+                dispatch({type : 'global/isLoading', payload : false});
+            }
         });
     }
     return update;

@@ -1,5 +1,6 @@
 import React, {useReducer} from 'react';
 import useCombinedReducers from 'use-combined-reducers';
+import globalReducer, { initialState as globalInitialState } from '../components/globalSlice';
 import { notesReducer, initialState as notesInitialState } from '../components/notes';
 import { textEditorReducer, initialState as textEditorInitialState } from '../components/text-editor';
 
@@ -13,6 +14,7 @@ const Provider = React.memo(({children}) => {
 
     const [state, dispatch] = useCombinedReducers(
         {
+            global : useReducer(globalReducer, globalInitialState),
             notes : useReducer(notesReducer, notesInitialState),
             textEditor : useReducer(textEditorReducer, textEditorInitialState)
         }
@@ -22,6 +24,7 @@ const Provider = React.memo(({children}) => {
     
     useEffect(() => {
         const list = {};
+        dispatch({type : 'global/isLoading', payload : true});
         axios.get(notes_url).then(result => {
             if(result.status !== 200) return;
 
@@ -30,6 +33,7 @@ const Provider = React.memo(({children}) => {
             });
             
             dispatch({type : 'notes/fetch', payload : list});
+            dispatch({type : 'global/isLoading', payload : false});
             setIsDoneFetching(true);
         });
     }, [isDoneFetching]);

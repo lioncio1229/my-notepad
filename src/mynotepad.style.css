@@ -59,6 +59,17 @@ p
     width: 100%;
 }
 
+.loading-circle img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 10%;
+    height: auto;
+    user-select: none;
+    -moz-user-select: none;
+}
+
 button
 {
     background-color: var(--pallete4);
