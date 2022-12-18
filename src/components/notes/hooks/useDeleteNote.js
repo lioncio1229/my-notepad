@@ -11,10 +11,8 @@ export default function useDeleteNote()
         const newUrl = notes_url + '/' +id;
         axios.delete(newUrl).then(result => {
             if(result.status === 200)
-            {
                 dispatch({type : 'global/isLoading', payload : false});
-                dispatch({type : 'notes/delete', payload : id});
-            }
+            dispatch({type : 'notes/delete', payload : id});
         });
     }
 
