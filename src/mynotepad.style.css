@@ -88,11 +88,15 @@ button:hover
 
 .btn-m
 {
-    width: 150px;
+    min-width: 150px;
 }
 .btn-l
 {
-    width: 250px;
+    min-width: 250px;
+}
+.btn-xl
+{
+    min-width: 350px;
 }
 
 .foot-con
@@ -148,6 +152,45 @@ button:hover
     width: 100%;
     height: 100vh;
 }
+
+/* #region Landing Page */
+.landing-page{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--pallete2);
+}
+
+.landing-page .content
+{
+    padding: 20px 25px;
+    padding-top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lp-btn{
+    margin: 5px 0;
+    height: 50px;
+    position: relative;
+}
+
+.lp-btn .icon{
+    position: absolute;
+    left: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lp-btn p{
+    font-size: 90%;
+}
+
+.bg-animation{
+    
+}
+
+/*  */
 
 /* #region Custom Scroll Bar */
 ::-webkit-scrollbar {
