@@ -1,7 +1,31 @@
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { gapi } from "gapi-script";
+import { GoogleLogin } from "react-google-login";
+
 
 const LandingPage = () => {
+
+    const clientId = "266637525500-vdqdsnu9bp3e9jdlomku0qjdaum02ran.apps.googleusercontent.com";
+    
+    useEffect(() => {
+        const initClient = () => {
+          gapi.client.init({
+            clientId: clientId,
+            scope: "",
+          });
+        };
+         gapi.load('client:auth2', initClient);
+     });
+
+    const onSuccess = (res) => {
+        console.log('success:', res);
+    };
+    const onFailure = (err) => {
+        console.log('failed:', err);
+    };
+
     return (<div className="landing-page">
         <div className="animated-bg">
             <div className="text"></div>
@@ -16,10 +40,19 @@ const LandingPage = () => {
             </svg>
         </div>
         <div className="flex-con fcol">
-            <button className="lp-btn btn-xl selectable">
-                <img className="icon" src="./google-logo.png" alt="google-logo.png" width={30} height={'auto'} />
-                <p> Continue with Google Account </p>
-            </button>
+            <GoogleLogin 
+                clientId={clientId}
+                render={ renderProps => (
+                    <button className="lp-btn btn-xl selectable" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                        <img className="icon" src="./google-logo.png" alt="google-logo.png" width={30} height={'auto'} />
+                        <p> Continue with Google Account </p>
+                    </button>)
+                }
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={'single_host_origin'}
+                isSignedIn={true}
+            />
             <button className="lp-btn btn-xl selectable">
                 <FontAwesomeIcon className="icon" icon={faUser} />
                 <p> Continue as a guest </p>
