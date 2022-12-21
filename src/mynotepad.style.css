@@ -157,7 +157,6 @@ button:hover
 .landing-page{
     width: 100%;
     height: 100vh;
-    background-color: var(--pallete2);
 }
 
 .landing-page .content
@@ -186,11 +185,51 @@ button:hover
     font-size: 90%;
 }
 
-.bg-animation{
-    
+/* #endregion */
+
+/* #region Animated Background */
+.animated-bg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--pallete2);
+    z-index: -1;
 }
 
-/*  */
+.animated-bg .text{
+    position: absolute;
+    overflow: hidden;
+    width: 5000px;
+    height: 5000px;
+    top: -2500px;
+
+    transform: rotate(45deg);
+
+    background-image: url('../public/my-notepad.png');
+    background-repeat: repeat;
+    background-size: 180px 63px;
+
+    animation: animate-bg 40s linear infinite;
+}
+
+@keyframes animate-bg{
+    0% {
+        left: 0px;
+        opacity: 0;
+    }
+    5%{
+        opacity: 1;
+    }
+    95%{
+        opacity: 1;
+    }
+    100%{
+        left: 300px;
+        opacity: 0;
+    }
+}
+
+/* #endregion */
 
 /* #region Custom Scroll Bar */
 ::-webkit-scrollbar {
