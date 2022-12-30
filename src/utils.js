@@ -2,8 +2,6 @@ export const stringToElement = (nodeString) => {
     return document.createRange().createContextualFragment(nodeString);
 }
 
-export const notes_url = 'https://my-notepad-api.onrender.com/notes';
-
 export function today()
 {
     const date = new Date();

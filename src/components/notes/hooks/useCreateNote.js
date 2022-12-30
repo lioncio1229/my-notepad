@@ -1,6 +1,6 @@
 import useStore from "../../../useStore";
 import axios from 'axios';
-import { notes_url } from "../../../utils";
+import config from '../../../config.json';
 
 export default function useCreateNote()
 {
@@ -12,7 +12,8 @@ export default function useCreateNote()
     }
     const create = () => {
         dispatch({type : 'global/isLoading', payload : true});
-        axios.post(notes_url, newNote).then(result => {
+        const url = config[process.env.NODE_ENV].api.notes
+        axios({method : 'post', url , data : newNote, withCredentials : true}).then(result => {
             if(result.status === 200)
                 dispatch({type : 'notes/add', payload : result.data});
             dispatch({type : 'global/isLoading', payload : false});

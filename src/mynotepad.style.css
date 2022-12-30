@@ -88,11 +88,15 @@ button:hover
 
 .btn-m
 {
-    width: 150px;
+    min-width: 150px;
 }
 .btn-l
 {
-    width: 250px;
+    min-width: 250px;
+}
+.btn-xl
+{
+    min-width: 350px;
 }
 
 .foot-con
@@ -148,6 +152,84 @@ button:hover
     width: 100%;
     height: 100vh;
 }
+
+/* #region Landing Page */
+.landing-page{
+    width: 100%;
+    height: 100vh;
+}
+
+.landing-page .content
+{
+    padding: 20px 25px;
+    padding-top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lp-btn{
+    margin: 5px 0;
+    height: 50px;
+    position: relative;
+}
+
+.lp-btn .icon{
+    position: absolute;
+    left: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lp-btn p{
+    font-size: 90%;
+}
+
+/* #endregion */
+
+/* #region Animated Background */
+.animated-bg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--pallete2);
+    z-index: -1;
+}
+
+.animated-bg .text{
+    position: absolute;
+    overflow: hidden;
+    width: 5000px;
+    height: 5000px;
+    top: -2500px;
+
+    transform: rotate(45deg);
+
+    background-image: url('../public/my-notepad.png');
+    background-repeat: repeat;
+    background-size: 180px 63px;
+
+    animation: animate-bg 40s linear infinite;
+}
+
+@keyframes animate-bg{
+    0% {
+        left: 0px;
+        opacity: 0;
+    }
+    5%{
+        opacity: 1;
+    }
+    95%{
+        opacity: 1;
+    }
+    100%{
+        left: 300px;
+        opacity: 0;
+    }
+}
+
+/* #endregion */
 
 /* #region Custom Scroll Bar */
 ::-webkit-scrollbar {

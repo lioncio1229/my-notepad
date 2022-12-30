@@ -2,7 +2,7 @@ import useStore from "../../useStore";
 
 const LoadingCircle = () => {
     const { state } = useStore();
-    console.log(state);
+
     return (
         state.global.isLoading &&
         <div className="blocker">
