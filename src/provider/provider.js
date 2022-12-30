@@ -6,11 +6,12 @@ import { notesReducer, initialState as notesInitialState } from '../components/n
 import { textEditorReducer, initialState as textEditorInitialState } from '../components/text-editor';
 import config from '../config.json';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const StoreContext = React.createContext();
 
 const Provider = React.memo(({children}) => {
-
+    const navigate = useNavigate();
     const [state, dispatch] = useCombinedReducers(
         {
             global : useReducer(globalReducer, globalInitialState),
@@ -26,7 +27,7 @@ const Provider = React.memo(({children}) => {
         
         axios.get(url, {withCredentials : true}).then(result => {
             if(result.status !== 200){
-
+                navigate('/');
                 return;
             };
     
@@ -36,6 +37,8 @@ const Provider = React.memo(({children}) => {
             
             dispatch({type : 'notes/fetch', payload : list});
             dispatch({type : 'global/isLoading', payload : false});
+        }).catch((e) => {
+            navigate('/');
         });
     }, []);
 

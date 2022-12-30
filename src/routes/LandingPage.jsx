@@ -58,7 +58,7 @@ const LandingPage = () => {
                 onSuccess={onLogin}
                 onFailure={onLogin}
                 cookiePolicy={'single_host_origin'}
-                // isSignedIn={true}
+                isSignedIn={true}
             />
             <button className="lp-btn btn-xl selectable" onClick={() => navigate("/texteditor")}>
                 <FontAwesomeIcon className="icon" icon={faUser} />
