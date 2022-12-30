@@ -1,6 +1,7 @@
 import useStore from "../../../useStore";
 import axios from 'axios';
-import { notes_url, today } from "../../../utils";
+import { today } from "../../../utils";
+import config from '../../../config.json';
 
 export default function useUpdateNote()
 {
@@ -9,7 +10,7 @@ export default function useUpdateNote()
     const update = (note) => {
         const _note = {...note, isFresh : false, lastModified : today()};
         dispatch({type : 'global/isLoading', payload : true});
-        axios.put(notes_url, _note).then(result => {
+        axios({method : 'put', url : config.development.api.notes, data : _note, withCredentials : true}).then(result => {
             if(result.status === 200)
                 dispatch({type : 'notes/update', payload : result.data});
             dispatch({type : 'global/isLoading', payload : false});

@@ -1,29 +1,36 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { gapi } from "gapi-script";
+import { gapi, loadAuth2 } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import config from '../config.json';
 
 const LandingPage = () => {
 
-    const clientId = "266637525500-vdqdsnu9bp3e9jdlomku0qjdaum02ran.apps.googleusercontent.com";
-    
+    const clientId = process.env.REACT_APP_CLIENT_ID;
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const initClient = () => {
-          gapi.client.init({
-            clientId: clientId,
-            scope: "",
-          });
-        };
-         gapi.load('client:auth2', initClient);
+        loadAuth2(gapi, clientId, "").then(() => console.log('Loaded!'));
      });
 
-    const onSuccess = (res) => {
-        console.log('success:', res);
-    };
-    const onFailure = (err) => {
-        console.log('failed:', err);
+    const onLogin = (res) => {
+        console.log('Login Result :', res);
+
+        axios({
+          method: "post",
+          url: config.development.api.googleOAuth,
+          data: { token: res.tokenId },
+          withCredentials: true,
+        }).then((res) => {
+          if (res.statusText === "OK") {
+            navigate(`/texteditor`);
+            return;
+          }
+          console.error("Authentication Failed");
+        });
     };
 
     return (<div className="landing-page">
@@ -48,12 +55,12 @@ const LandingPage = () => {
                         <p> Continue with Google Account </p>
                     </button>)
                 }
-                onSuccess={onSuccess}
-                onFailure={onFailure}
+                onSuccess={onLogin}
+                onFailure={onLogin}
                 cookiePolicy={'single_host_origin'}
-                isSignedIn={true}
+                // isSignedIn={true}
             />
-            <button className="lp-btn btn-xl selectable">
+            <button className="lp-btn btn-xl selectable" onClick={() => navigate("/texteditor")}>
                 <FontAwesomeIcon className="icon" icon={faUser} />
                 <p> Continue as a guest </p>
             </button>
