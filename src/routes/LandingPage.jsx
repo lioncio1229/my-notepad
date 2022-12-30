@@ -21,7 +21,7 @@ const LandingPage = () => {
 
         axios({
           method: "post",
-          url: config.development.api.googleOAuth,
+          url: config[process.env.NODE_ENV].api.googleOAuth,
           data: { token: res.tokenId },
           withCredentials: true,
         }).then((res) => {

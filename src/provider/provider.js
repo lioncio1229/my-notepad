@@ -22,7 +22,9 @@ const Provider = React.memo(({children}) => {
     useEffect(() => {
         const list = {};
         dispatch({type : 'global/isLoading', payload : true});
-        axios.get(config.development.api.notes, {withCredentials : true}).then(result => {
+        const url = config[process.env.NODE_ENV].api.notes;
+        
+        axios.get(url, {withCredentials : true}).then(result => {
             if(result.status !== 200){
 
                 return;

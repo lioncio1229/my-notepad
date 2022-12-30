@@ -10,7 +10,9 @@ export default function useUpdateNote()
     const update = (note) => {
         const _note = {...note, isFresh : false, lastModified : today()};
         dispatch({type : 'global/isLoading', payload : true});
-        axios({method : 'put', url : config.development.api.notes, data : _note, withCredentials : true}).then(result => {
+
+        const url = config[process.env.NODE_ENV].api.notes
+        axios({method : 'put', url, data : _note, withCredentials : true}).then(result => {
             if(result.status === 200)
                 dispatch({type : 'notes/update', payload : result.data});
             dispatch({type : 'global/isLoading', payload : false});
