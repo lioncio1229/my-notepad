@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import config from '../../config.json';
 import { useGoogleLogout } from "react-google-login";
 import { useNavigate } from "react-router-dom";
+import ConfirmationBox from "../confirmation-box";
+import { faSignOut } from '@fortawesome/free-solid-svg-icons';
 
 const AccountMenu = React.forwardRef((props, ref) => {
+    const [isSignoutBoxEnabled, setIsSignoutBoxEnabled] = useState(false);
 
     const {signOut} = useGoogleLogout({
         clientId : process.env.REACT_APP_CLIENT_ID,
@@ -25,10 +28,20 @@ const AccountMenu = React.forwardRef((props, ref) => {
     }
 
     return (
-    <div className="account-menu selectable" ref={ref}>
-        <p className="btn" onClick={logout}>Logout</p>
-        <div className="vertical-divider"></div>
-    </div>
+        <>
+            {isSignoutBoxEnabled && <ConfirmationBox
+                title="Signout"
+                message="Are you sure to signout?"
+                icon={faSignOut}
+                onConfirm={logout}
+                onClose={() => setIsSignoutBoxEnabled(false)}
+            />}
+            
+            <div className="account-menu selectable" ref={ref}>
+                <p className="btn" onClick={() => setIsSignoutBoxEnabled(true)}> Logout </p>
+                <div className="vertical-divider"></div>
+            </div>
+        </>
     );
 });
 
