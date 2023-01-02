@@ -1,12 +1,35 @@
 import React from "react";
+import axios from "axios";
+import config from '../../config.json';
+import { useGoogleLogout } from "react-google-login";
+import { useNavigate } from "react-router-dom";
 
 const AccountMenu = React.forwardRef((props, ref) => {
-  return (
+
+    const {signOut} = useGoogleLogout({
+        clientId : process.env.REACT_APP_CLIENT_ID,
+        onLogoutSuccess(){
+            navigate('/');
+        },
+        onFailure(){
+            console.error("Can't logout");
+        }
+    });
+    const navigate = useNavigate();
+
+    const logout = () => {
+        const url = config[process.env.NODE_ENV].api.user + '/logout';
+        axios({method : 'post', url, withCredentials : true}).then(result => {
+            if(result.status === 200) signOut();
+        });
+    }
+
+    return (
     <div className="account-menu selectable" ref={ref}>
-      <p className="btn">Logout</p>
-      <div className="vertical-divider"></div>
+        <p className="btn" onClick={logout}>Logout</p>
+        <div className="vertical-divider"></div>
     </div>
-  );
+    );
 });
 
 export default AccountMenu;
