@@ -23,18 +23,19 @@ const Provider = React.memo(({children}) => {
     useEffect(() => {
         const list = {};
         dispatch({type : 'global/isLoading', payload : true});
-        const url = config[process.env.NODE_ENV].api.notes;
+        const {user : userUrl} = config[process.env.NODE_ENV].api;
         
-        axios.get(url, {withCredentials : true}).then(result => {
+        axios.get(userUrl, {withCredentials : true}).then(result => {
             if(result.status !== 200){
                 navigate('/');
                 return;
             };
-    
-            result.data.forEach(item => {
+
+            result.data.notes.forEach(item => {
                 list[item._id] = item;
             });
             
+            dispatch({type : 'global/setAccount', payload : {picture : result.data.picture}});
             dispatch({type : 'notes/fetch', payload : list});
             dispatch({type : 'global/isLoading', payload : false});
         }).catch((e) => {

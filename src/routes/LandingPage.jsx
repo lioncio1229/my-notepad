@@ -13,7 +13,13 @@ const LandingPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        loadAuth2(gapi, clientId, "").then(() => console.log('Loaded!'));
+        const initClient = () => {
+            gapi.client.init({
+              clientId: clientId,
+              scope: "email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+            });
+          };
+        gapi.load('client:auth2', initClient);
      });
 
     const onLogin = (res) => {

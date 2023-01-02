@@ -1,6 +1,9 @@
 
 export const initialState = {
-    isLoading : false
+    isLoading : false,
+    account : {
+        picture : undefined
+    }
 }
 
 export default function globalReducer(state, action)
@@ -11,7 +14,14 @@ export default function globalReducer(state, action)
             return {
                 ...state,
                 isLoading : action.payload
-            }
+            };
+        case 'global/setAccount':
+            return {
+                ...state,
+                account : {
+                    picture : action.payload.picture
+                }
+            };
         default:
             return state;
     }
