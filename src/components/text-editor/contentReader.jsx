@@ -46,7 +46,7 @@ export default function ContentReader() {
     if(!isReading) cancel();
   }, [isReading]);
 
-  const options = () => {
+  const Options = () => {
 
     return (
       <div ref={toggleMenu.menuRef} className="content-reader-options flex-con-2 fcol">
@@ -102,7 +102,7 @@ export default function ContentReader() {
   return (
     <>
       <div className="content-reader flex-con">
-        {toggleMenu.isMenuOpen && options()}
+        {toggleMenu.isMenuOpen && <Options/>}
 
         <FontAwesomeIcon
           ref={toggleMenu.buttonRef}

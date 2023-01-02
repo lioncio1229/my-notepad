@@ -6,7 +6,7 @@ export default function NoteInfo({dateCreated, lastModified})
 {
     const toggleMenu = useToggleMenu();
     
-    const info = () => {
+    const Info = () => {
         return (
             <div ref={toggleMenu.menuRef} className="info-menu">
                 <div className="content flex-con fcol">
@@ -20,7 +20,7 @@ export default function NoteInfo({dateCreated, lastModified})
 
     return (
         <div className="note-info">
-            {toggleMenu.isMenuOpen && info()}
+            {toggleMenu.isMenuOpen && <Info/>}
             <FontAwesomeIcon ref={toggleMenu.buttonRef} onClick={toggleMenu.toggle} className="icon selectable" icon={faCircleInfo} />
         </div>
     );

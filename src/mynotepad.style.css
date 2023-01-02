@@ -1,5 +1,6 @@
 :root
 {
+    --menu-hover-color: #f0eba7;
     --pallete1: #FFFDE2;
     --pallete2: #F9F6C6;
     --pallete3: #FFF78B;
@@ -298,7 +299,7 @@ button:hover
   
   .modern-radio-container:hover
   {
-    background-color: #f0eba7;
+    background-color: var(--menu-hover-color);
   }
 
   .radio-outer-circle {
@@ -854,6 +855,31 @@ button:hover
 .info-menu h2
 {
     margin: 5px 0;
+}
+
+/* #endregion */
+
+/* #region Account Menu */
+.account-menu{
+    background-color: var(--pallete2);
+    box-shadow: 0 0 15px 2px var(--pallete5);
+    width: 150px;
+    position: absolute;
+    top: 51px;
+    right: 3px;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.account-menu .btn{
+    color: var(--pallete5);
+    width: 100%;
+    padding-left: 20px;
+    line-height: 50px;
+}
+
+.account-menu .btn:hover{
+    background-color: var(--menu-hover-color);
 }
 
 /* #endregion */
