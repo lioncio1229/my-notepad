@@ -7,6 +7,10 @@
         }
     },
     "production" : {
-
+        "api" : {
+            "googleOAuth" : "https://my-notepad-api.onrender.com/api/v1/auth/google",
+            "user" : "https://my-notepad-api.onrender.com/api/user",
+            "notes" : "https://my-notepad-api.onrender.com/api/notes"
+        }
     }
 }
