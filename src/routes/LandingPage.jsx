@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { gapi, loadAuth2 } from "gapi-script";
+import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +39,10 @@ const LandingPage = () => {
         });
     };
 
+    const initializeGuestMode = () => {
+        navigate("/texteditor");
+    }
+
     return (<div className="landing-page">
         <div className="animated-bg">
             <div className="text"></div>
@@ -66,7 +70,7 @@ const LandingPage = () => {
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
             />
-            <button className="lp-btn btn-xl selectable" onClick={() => navigate("/texteditor")}>
+            <button className="lp-btn btn-xl selectable" onClick={initializeGuestMode}>
                 <FontAwesomeIcon className="icon" icon={faUser} />
                 <p> Continue as a guest </p>
             </button>

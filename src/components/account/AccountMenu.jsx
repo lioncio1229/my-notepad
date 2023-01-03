@@ -5,13 +5,16 @@ import { useGoogleLogout } from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import ConfirmationBox from "../confirmation-box";
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';
+import useStore from "../../useStore";
 
 const AccountMenu = React.forwardRef((props, ref) => {
+    const {dispatch} = useStore();
     const [isSignoutBoxEnabled, setIsSignoutBoxEnabled] = useState(false);
 
     const {signOut} = useGoogleLogout({
         clientId : process.env.REACT_APP_CLIENT_ID,
         onLogoutSuccess(){
+            dispatch({type : 'notes/setEmpty'});
             navigate('/');
         },
         onFailure(){

@@ -37,7 +37,13 @@ export default function notesReducer(state, action) {
         list : action.payload,
         modificationID : uniqid()
       };
-
+    case "notes/setEmpty":
+      console.log('Hello?');
+      return {
+        ...state,
+        list : {},
+        modificationID : uniqid()
+      };
     case "notes/add":
       const newNote = action.payload;
       return {
