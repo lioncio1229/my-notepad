@@ -6,10 +6,12 @@ import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import config from '../config.json';
+import useStore from "../useStore";
 
 const LandingPage = () => {
 
     const clientId = process.env.REACT_APP_CLIENT_ID;
+    const {dispatch} = useStore();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +22,12 @@ const LandingPage = () => {
             });
           };
         gapi.load('client:auth2', initClient);
-     });
+    });
+
+    useEffect(() => {
+        dispatch({type : 'notes/setEmpty'});
+        dispatch({type : 'global/setAccount', payload : {picture : undefined}});
+    }, []);
 
     const onLogin = (res) => {
         console.log('Login Result :', res);
@@ -32,16 +39,13 @@ const LandingPage = () => {
           withCredentials: true,
         }).then((res) => {
           if (res.statusText === "OK") {
+            dispatch({type : 'global/setGuestMode', payload : false});
             navigate(`/texteditor`);
             return;
           }
           console.error("Authentication Failed");
         });
     };
-
-    const initializeGuestMode = () => {
-        navigate("/texteditor");
-    }
 
     return (<div className="landing-page">
         <div className="animated-bg">
@@ -70,7 +74,7 @@ const LandingPage = () => {
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
             />
-            <button className="lp-btn btn-xl selectable" onClick={initializeGuestMode}>
+            <button className="lp-btn btn-xl selectable" onClick={() => navigate("/texteditor")}>
                 <FontAwesomeIcon className="icon" icon={faUser} />
                 <p> Continue as a guest </p>
             </button>

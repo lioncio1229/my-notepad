@@ -38,7 +38,6 @@ export default function notesReducer(state, action) {
         modificationID : uniqid()
       };
     case "notes/setEmpty":
-      console.log('Hello?');
       return {
         ...state,
         list : {},

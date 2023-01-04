@@ -15,6 +15,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
         clientId : process.env.REACT_APP_CLIENT_ID,
         onLogoutSuccess(){
             dispatch({type : 'notes/setEmpty'});
+            dispatch({type : 'global/setGuestMode', payload : false});
             navigate('/');
         },
         onFailure(){

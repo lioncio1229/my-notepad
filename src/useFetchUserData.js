@@ -27,7 +27,8 @@ export default function useFetchUserData()
             dispatch({type : 'notes/fetch', payload : list});
             dispatch({type : 'global/isLoading', payload : false});
         }).catch((e) => {
-            navigate('/');
+            dispatch({type : 'global/setGuestMode', payload : true});
+            dispatch({type : 'global/isLoading', payload : false});
         });
     }
 
