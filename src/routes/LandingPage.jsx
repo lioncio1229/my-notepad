@@ -15,16 +15,6 @@ const LandingPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const initClient = () => {
-            gapi.client.init({
-              clientId: clientId,
-              scope: "email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
-            });
-          };
-        gapi.load('client:auth2', initClient);
-    });
-
-    useEffect(() => {
         dispatch({type : 'notes/setEmpty'});
         dispatch({type : 'global/setAccount', payload : {picture : undefined}});
     }, []);

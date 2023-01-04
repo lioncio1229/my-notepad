@@ -23,8 +23,9 @@ export default function useFetchUserData()
                 list[item._id] = item;
             });
             
-            dispatch({type : 'global/setAccount', payload : {picture : result.data.picture}});
             dispatch({type : 'notes/fetch', payload : list});
+            dispatch({type : 'global/setAccount', payload : {picture : result.data.picture}});
+            dispatch({type : 'global/setGuestMode', payload : false});
             dispatch({type : 'global/isLoading', payload : false});
         }).catch((e) => {
             dispatch({type : 'global/setGuestMode', payload : true});

@@ -10,12 +10,13 @@ export default function useCreateNote()
     const newNote = {
         title : 'New Note',
         content : '',
-        isFresh : true
+        isFresh : true,
+        _id : uuid(),
     }
     const create = () => {
         if(state.global.isGuestMode)
         {
-            dispatch({type : 'notes/add', payload : {...newNote, _id : uuid()}});
+            dispatch({type : 'notes/add', payload : newNote});
             return;
         }
 

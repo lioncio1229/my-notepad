@@ -10,7 +10,7 @@ export default function Header({picture})
 
     return (
       <>
-        { isMenuOpen && <AccountMenu ref={menuRef}/>}
+        { isMenuOpen && <AccountMenu ref={menuRef} toggle={toggle}/>}
 
         <div className="header flex-con">
           <h1>MY NOTEPAD</h1>
@@ -19,8 +19,10 @@ export default function Header({picture})
             <img className="user-account selectable picture" src={picture} ref={buttonRef} onClick={() => toggle()} />
           ) : (
             <FontAwesomeIcon
+              ref={buttonRef}
               className="user-account selectable"
               icon={faCircleUser}
+              onClick={() => toggle()}
             />
           )}
         </div>
