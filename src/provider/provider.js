@@ -1,17 +1,14 @@
-import React, {useReducer} from 'react';
-import { useEffect } from 'react';
+import React, {useEffect, useReducer} from 'react';
 import useCombinedReducers from 'use-combined-reducers';
 import globalReducer, { initialState as globalInitialState } from '../components/globalSlice';
 import { notesReducer, initialState as notesInitialState } from '../components/notes';
 import { textEditorReducer, initialState as textEditorInitialState } from '../components/text-editor';
-import config from '../config.json';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { gapi } from "gapi-script";
 
 export const StoreContext = React.createContext();
 
 const Provider = React.memo(({children}) => {
-    const navigate = useNavigate();
+
     const [state, dispatch] = useCombinedReducers(
         {
             global : useReducer(globalReducer, globalInitialState),
@@ -19,29 +16,16 @@ const Provider = React.memo(({children}) => {
             textEditor : useReducer(textEditorReducer, textEditorInitialState)
         }
     );
-    
-    useEffect(() => {
-        const list = {};
-        dispatch({type : 'global/isLoading', payload : true});
-        const {user : userUrl} = config[process.env.NODE_ENV].api;
-        
-        axios.get(userUrl, {withCredentials : true}).then(result => {
-            if(result.status !== 200){
-                navigate('/');
-                return;
-            };
 
-            result.data.notes.forEach(item => {
-                list[item._id] = item;
+    useEffect(() => {
+        const initClient = () => {
+            gapi.client.init({
+              clientId: process.env.REACT_APP_CLIENT_ID,
+              scope: "email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
             });
-            
-            dispatch({type : 'global/setAccount', payload : {picture : result.data.picture}});
-            dispatch({type : 'notes/fetch', payload : list});
-            dispatch({type : 'global/isLoading', payload : false});
-        }).catch((e) => {
-            navigate('/');
-        });
-    }, []);
+          };
+        gapi.load('client:auth2', initClient);
+    });
 
     return (
         <StoreContext.Provider value={{state, dispatch}}>

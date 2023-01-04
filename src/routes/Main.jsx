@@ -4,14 +4,18 @@ import Header from "../components/header";
 import Notes from '../components/notes';
 import TextEditor from '../components/text-editor';
 import LoadingCircle from '../components/loading-circle';
-import Provider from '../provider';
+import useFetchUserData from '../useFetchUserData';
+import { useEffect } from 'react';
 
 export default function Main() {
-
-  const MainPage = () => {
-    const state = useStore().state;
+  const state = useStore().state;
     const {picture} = state.global.account;
     const {isWide, isLong, isFullscreen} = state.textEditor.display;
+    const {fetch} = useFetchUserData();
+
+    useEffect(() => {
+      fetch();
+    }, []);
 
     return (
       <div className='main flex-con fcol'>
@@ -23,11 +27,4 @@ export default function Main() {
         </div>
       </div>
     );
-  }
-
-  return (
-    <Provider>
-      <MainPage />
-    </Provider>
-  )
 };

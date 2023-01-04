@@ -5,10 +5,16 @@ import config from '../../../config.json';
 
 export default function useUpdateNote()
 {
-    const {dispatch} = useStore();
+    const {dispatch, state} = useStore();
 
     const update = (note) => {
         const _note = {...note, isFresh : false, lastModified : today()};
+        if(state.global.isGuestMode)
+        {
+            dispatch({type : 'notes/update', payload : _note});
+            return;
+        }
+
         dispatch({type : 'global/isLoading', payload : true});
 
         const url = config[process.env.NODE_ENV].api.notes

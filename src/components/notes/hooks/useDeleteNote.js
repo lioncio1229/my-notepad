@@ -4,9 +4,15 @@ import config from '../../../config.json';
 
 export default function useDeleteNote()
 {
-    const {dispatch} = useStore();
+    const {dispatch, state} = useStore();
 
     const deleteNote = (id) => {
+        if(state.global.isGuestMode)
+        {
+            dispatch({type : 'notes/delete', payload : id});
+            return;
+        }
+        
         dispatch({type : 'global/isLoading', payload : true});
         const url = config[process.env.NODE_ENV].api.notes + '/' +id;
 

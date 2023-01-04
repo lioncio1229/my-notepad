@@ -1,26 +1,23 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { gapi, loadAuth2 } from "gapi-script";
+import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import config from '../config.json';
+import useStore from "../useStore";
 
 const LandingPage = () => {
 
     const clientId = process.env.REACT_APP_CLIENT_ID;
+    const {dispatch} = useStore();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const initClient = () => {
-            gapi.client.init({
-              clientId: clientId,
-              scope: "email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
-            });
-          };
-        gapi.load('client:auth2', initClient);
-     });
+        dispatch({type : 'notes/setEmpty'});
+        dispatch({type : 'global/setAccount', payload : {picture : undefined}});
+    }, []);
 
     const onLogin = (res) => {
         console.log('Login Result :', res);
@@ -32,6 +29,7 @@ const LandingPage = () => {
           withCredentials: true,
         }).then((res) => {
           if (res.statusText === "OK") {
+            dispatch({type : 'global/setGuestMode', payload : false});
             navigate(`/texteditor`);
             return;
           }

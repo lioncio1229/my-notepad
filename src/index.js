@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import LandingPage from './routes/LandingPage';
 import Main from './routes/Main';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Provider from './provider';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
+  <Provider>
       <RouterProvider router={router} />
-  // </React.StrictMode>
+  </Provider>
 );
