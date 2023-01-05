@@ -36,7 +36,7 @@ const AccountMenu = React.forwardRef(({toggle}, ref) => {
                 const url = apiUrl.notes + '/addnotes';
                 axios({url, method : 'post', data : {notes}, withCredentials : true})
                 .then(result => {
-                    if(result.statusText === 'OK') fetch();
+                    fetch();
                 });
             })
             .catch((e) => {
