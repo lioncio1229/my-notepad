@@ -1,6 +1,5 @@
 export default {
     devServer: {
-        publicPath: '/',
         historyApiFallback: true,
         open: true,
         overlay: true,
