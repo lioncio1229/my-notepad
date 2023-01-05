@@ -1,10 +1,10 @@
 export default {
     devServer: {
         historyApiFallback: true,
-        open: true,
-        overlay: true,
-        proxy: {
-          '/api': 'http://localhost:3000'
-        }
+        // open: true,
+        // overlay: true,
+        // proxy: {
+        //   '/api': 'http://localhost:3000'
+        // }
     }
 };
