@@ -28,12 +28,8 @@ const LandingPage = () => {
           data: { token: res.tokenId },
           withCredentials: true,
         }).then((res) => {
-          if (res.statusText === "OK") {
             dispatch({type : 'global/setGuestMode', payload : false});
             navigate(`/texteditor`);
-            return;
-          }
-          console.error("Authentication Failed");
         });
     };
 
