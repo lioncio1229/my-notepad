@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +23,7 @@ const LandingPage = () => {
 
         axios({
           method: "post",
-          url: config[process.env.NODE_ENV].api.googleOAuth,
+          url: config[process.env.REACT_APP_ENVIRONMENT].api.googleOAuth,
           data: { token: res.tokenId },
           withCredentials: true,
         }).then((res) => {
