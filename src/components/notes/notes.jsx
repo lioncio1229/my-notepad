@@ -48,7 +48,10 @@ export default function Notes() {
 
   const handleNoteClick = (id) => {
     if (!isNoteDirty(id)) 
-        select(id);
+    {
+      select(id);
+      if(isMobile) dispatch({type : 'global/TextEditorOpen', payload : true});
+    }
   };
 
   const handleNoteDelete = (id) => {

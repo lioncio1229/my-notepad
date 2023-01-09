@@ -19,6 +19,7 @@ import NoteInfo from "./noteInfo";
 export default function TextEditor() {
 
   const {note, state, dispatch} = useCurrentNote();
+  const {isTextEditorOpen} = state.global;
   const {isWide, isFullscreen} = state.textEditor.display;
   const {title, onFocus, handleFocusIn, handleFocusOut, handleTextChange} = useTitleHandler();
   const {saveContent, handleOnChange, isDirty} = useContentEditor();

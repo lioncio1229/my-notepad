@@ -12,6 +12,7 @@ import { isMobile } from '../utils';
 export default function Main() {
   const state = useStore().state;
     const {picture} = state.global.account;
+    const {isTextEditorOpen} = state.global;
     const {isWide, isLong, isFullscreen} = state.textEditor.display;
     const {fetch} = useFetchUserData();
 
@@ -22,7 +23,7 @@ export default function Main() {
     return (
       <div className='main flex-con fcol'>
         {
-          isMobile ? 
+          isMobile ? isTextEditorOpen ? <TextEditor/> :
           <>
             <Header picture={picture}/>
             <Notes />

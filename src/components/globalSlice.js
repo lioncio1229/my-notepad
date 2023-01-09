@@ -2,6 +2,7 @@
 export const initialState = {
     isLoading : false,
     isGuestMode : false,
+    isTextEditorOpen : false, //For mobile use
     account : {
         picture : undefined
     }
@@ -27,6 +28,11 @@ export default function globalReducer(state, action)
             return {
                 ...state,
                 isGuestMode : action.payload
+            }
+        case 'global/TextEditorOpen':
+            return {
+                ...state,
+                isTextEditorOpen : action.payload
             }
         default:
             return state;
