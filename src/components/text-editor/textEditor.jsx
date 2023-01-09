@@ -15,6 +15,7 @@ import useTitleHandler from "./hooks/useTitleHandler";
 import useContentEditor from "./hooks/useContentEditor";
 import ContentReader from "./contentReader";
 import NoteInfo from "./noteInfo";
+import { isMobile } from "../../utils";
 
 export default function TextEditor() {
 
@@ -62,7 +63,10 @@ export default function TextEditor() {
           {!isFullscreen && (
             <div className="icon flex-con">
               <FontAwesomeIcon
-                onClick={() => setDisplay({ isWide: !isWide })}
+                onClick={() => {
+                  if(isMobile) dispatch({type : 'global/TextEditorOpen', payload : false});
+                  else setDisplay({ isWide: !isWide });
+                }}
                 className="selectable"
                 icon={isWide ? faArrowRight : faArrowLeft}
               />
