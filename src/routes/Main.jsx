@@ -1,5 +1,6 @@
 import useStore from '../useStore';
-import '../mynotepad.style.css';
+import '../style.css';
+import '../style.mobile.css';
 import Header from "../components/header";
 import Notes from '../components/notes';
 import TextEditor from '../components/text-editor';

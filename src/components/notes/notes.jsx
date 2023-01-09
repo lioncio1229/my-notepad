@@ -8,6 +8,7 @@ import NotesSort from "./notesSort";
 import useContentEditor from "../text-editor/hooks/useContentEditor";
 import useDeleteNote from "./hooks/useDeleteNote";
 import useSortNote from "./hooks/useSortNote";
+import { isMobile } from "../../utils";
 
 import { faTrash, faSave } from '@fortawesome/free-solid-svg-icons';
 
@@ -105,7 +106,7 @@ export default function Notes() {
       {saveCB.isOn && saveConfirmationBox()}
       {deleteCB.isOn && deleteConfirmationBox()}
 
-      <div className="notes flex-con fcol">
+      <div className={"notes flex-con fcol" + (isMobile ? ' mobile-notes' : '')}>
         <div className="list">
           {
             // noteList && Object.keys(noteList).map((key) => {
