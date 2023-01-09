@@ -12,6 +12,7 @@ body
 {
     margin: 0;
     padding: 0;
+    width: 100vw;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
     background-color: var(--pallete1);
 }
@@ -380,7 +381,7 @@ button:hover
 .list
 {
     width: 100%;
-    height: 90%;
+    height: 99.5%;
     overflow: auto;
 }
 
@@ -456,7 +457,7 @@ button:hover
 
 .notes
 {
-    height: 91.2vh;
+    height: 99.5%;
     min-width: 350px;
     max-width: 350px;
     background-color: var(--pallete1);
