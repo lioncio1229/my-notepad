@@ -6,6 +6,7 @@ import TextEditor from '../components/text-editor';
 import LoadingCircle from '../components/loading-circle';
 import useFetchUserData from '../useFetchUserData';
 import { useEffect } from 'react';
+import { isMobile } from '../utils';
 
 export default function Main() {
   const state = useStore().state;
@@ -19,12 +20,21 @@ export default function Main() {
 
     return (
       <div className='main flex-con fcol'>
-        <LoadingCircle />
-        {(!isLong && !isFullscreen) && <Header picture={picture}/>}
-        <div className='my-notepad flex-con'>
-          {(!isWide && !isFullscreen) && <Notes />}
-          <TextEditor />
-        </div>
+        {
+          isMobile ? 
+          <>
+            <Header picture={picture}/>
+            <Notes />
+          </> : 
+          <>
+            <LoadingCircle />
+            {(!isLong && !isFullscreen) && <Header picture={picture}/>}
+            <div className='my-notepad flex-con'>
+              {(!isWide && !isFullscreen) && <Notes />}
+              <TextEditor />
+            </div>
+          </>
+        }
       </div>
     );
 };
