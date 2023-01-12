@@ -15,45 +15,53 @@ import useContentEditor from "./hooks/useContentEditor";
 import ContentReader from "./contentReader";
 import NoteInfo from "./noteInfo";
 
-export default function TextEditor({note, setDisplay, isWide, isFullscreen}) {
-  const {title, onFocus, handleFocusIn, handleFocusOut, handleTextChange} = useTitleHandler();
-  const {saveContent, handleOnChange, isDirty} = useContentEditor();
+export default function TextEditor({
+  note,
+  setDisplay,
+  isWide,
+  isFullscreen,
+  closeTextEditor,
+  isMobile,
+}) {
+  const { title, onFocus, handleFocusIn, handleFocusOut, handleTextChange } =
+    useTitleHandler();
+  const { saveContent, handleOnChange, isDirty } = useContentEditor();
 
   const titleRef = useRef();
   const isFocusRef = useRef();
   isFocusRef.current = onFocus;
 
   const handleEnter = (e) => {
-    if(e.key === 'Enter' && isFocusRef.current)
-      titleRef.current.blur();
-  }
+    if (e.key === "Enter" && isFocusRef.current) titleRef.current.blur();
+  };
 
   useEffect(() => {
-    document.addEventListener('keyup', handleEnter);
-  }, [isFocusRef.current])
+    document.addEventListener("keyup", handleEnter);
+  }, [isFocusRef.current]);
 
   useEffect(() => {
     if (note?.isFresh) titleRef.current?.focus();
   }, [note]);
 
-  if(!note)
-  {
+  if (!note) {
     return (
       <div className="text-editor">
         <div className="empty">No Selected</div>
       </div>
-    )
+    );
   }
 
   const renderTitle = () => {
-
     return (
       <div className="title">
         <div className="title-con flex-con">
           {!isFullscreen && (
             <div className="icon flex-con">
               <FontAwesomeIcon
-                onClick={() => setDisplay({ isWide: !isWide })}
+                onClick={() => {
+                  if (isMobile) closeTextEditor();
+                  else setDisplay({ isWide: !isWide });
+                }}
                 className="selectable"
                 icon={isWide ? faArrowRight : faArrowLeft}
               />
@@ -94,45 +102,44 @@ export default function TextEditor({note, setDisplay, isWide, isFullscreen}) {
   const renderContent = () => {
     return (
       <div className="pad flex-con">
-      <div className="viewport">
-        <div
-          id="paper"
-          className="paper"
-          contentEditable
-          suppressContentEditableWarning
-          onInput={handleOnChange}
-        >
+        <div className="viewport">
+          <div
+            id="paper"
+            className="paper"
+            contentEditable
+            suppressContentEditableWarning
+            onInput={handleOnChange}
+          ></div>
         </div>
       </div>
-    </div>
     );
   };
 
   const renderFooter = () => {
     return (
-      
       <div className="foot-con">
-
         <div className="text-editor-buttons">
-          <NoteInfo dateCreated={note.dateCreated} lastModified={note.lastModified}/>
-          {!
-            isDirty && 
+          <NoteInfo
+            dateCreated={note.dateCreated}
+            lastModified={note.lastModified}
+          />
+          {!isDirty && (
             <>
               <div className="horizontal-divider"></div>
               <ContentReader />
-            </> 
-          }
-          {
-            isDirty && 
+            </>
+          )}
+          {isDirty && (
             <>
               <div className="horizontal-divider"></div>
               <div className="save-btn">
-                <button onClick={saveContent} className="btn-m selectable">Save</button>
+                <button onClick={() => saveContent()} className="btn-m selectable">
+                  Save
+                </button>
               </div>
             </>
-          }
+          )}
         </div>
-        
       </div>
     );
   };

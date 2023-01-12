@@ -66,7 +66,7 @@ export default function Main() {
   const handleNoteClick = (id) => {
     if (!isNoteDirty(id)) {
       select(id);
-      // if (isMobile) dispatch({ type: "global/TextEditorOpen", payload: true });
+      if (isMobile) dispatch({ type: "global/TextEditorOpen", payload: true });
     }
   };
 
@@ -78,15 +78,22 @@ export default function Main() {
     dispatch({type : 'textEditor/display/update', payload : display});
   }
 
+  const closeTextEditor = (force=false) => {
+    if(!force && isNoteDirty()) return; 
+    dispatch({type : 'global/TextEditorOpen', payload : false})
+  }
+
   const saveConfirmationBox = () => {
     const saveNote = () => {
       saveContent();
       select(saveCB.id);
+      isMobile && closeTextEditor(true);
     };
 
     const unsaveNote = () => {
       unsaveContent();
       select(saveCB.id);
+      isMobile && closeTextEditor(true);
     };
 
     return (
@@ -123,17 +130,35 @@ export default function Main() {
     <>
       {saveCB.isOn && saveConfirmationBox()}
       {deleteCB.isOn && deleteConfirmationBox()}
+      <LoadingCircle />
 
       <div className="main flex-con fcol">
         {isMobile ? (
           <>
-            {!isTextEditorOpen && <Header picture={picture} />}
-            {/* <Notes /> */}
-            {/* {isTextEditorOpen && <TextEditor />} */}
+
+            {!isTextEditorOpen ? (
+              <>
+                <Header picture={picture} />
+                <Notes
+                  notes={notes}
+                  onAddNote={handleAddNote}
+                  onDeleteNote={handleNoteDelete}
+                  onClickNote={handleNoteClick}
+                />
+              </>
+            ) : (
+              <TextEditor
+                note={note}
+                setDisplay={setDisplay}
+                isWide={isWide}
+                isFullscreen={isFullscreen}
+                closeTextEditor={closeTextEditor}
+                isMobile={isMobile}
+              />
+            )}
           </>
         ) : (
           <>
-            <LoadingCircle />
             {!isLong && !isFullscreen && <Header picture={picture} />}
             <div className="my-notepad flex-con">
               {!isWide && !isFullscreen && (
