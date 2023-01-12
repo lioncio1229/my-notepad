@@ -83,7 +83,7 @@ export default function TextEditor({
             </div>
           </div>
 
-          <div className="icon flex-con">
+          {!isMobile && <div className="icon flex-con">
             <FontAwesomeIcon
               onClick={() => setDisplay({ isFullscreen: !isFullscreen })}
               className="selectable"
@@ -93,7 +93,7 @@ export default function TextEditor({
                   : faUpRightAndDownLeftFromCenter
               }
             />
-          </div>
+          </div>}
         </div>
       </div>
     );
