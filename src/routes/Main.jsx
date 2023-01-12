@@ -18,6 +18,8 @@ import { faTrash, faSave } from '@fortawesome/free-solid-svg-icons';
 
 export default function Main() {
   const {state, dispatch} = useStore();
+  const {list, currentId} = state.notes;
+  const note = list[currentId];
   const { picture } = state.global.account;
   const { isTextEditorOpen } = state.global;
   const { isWide, isLong, isFullscreen } = state.textEditor.display;
@@ -71,6 +73,10 @@ export default function Main() {
   const handleNoteDelete = (id) => {
     if (!isNoteDirty(id)) setDeleteCB({ id, isOn: true });
   };
+
+  const setDisplay = (display) => {
+    dispatch({type : 'textEditor/display/update', payload : display});
+  }
 
   const saveConfirmationBox = () => {
     const saveNote = () => {
@@ -138,7 +144,12 @@ export default function Main() {
                   onClickNote={handleNoteClick}
                 />
               )}
-              <TextEditor />
+              <TextEditor
+                note={note}
+                setDisplay={setDisplay}
+                isWide={isWide}
+                isFullscreen={isFullscreen}
+              />
             </div>
           </>
         )}

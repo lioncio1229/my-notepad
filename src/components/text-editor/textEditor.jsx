@@ -10,18 +10,12 @@ import {
 // import Picker from 'emoji-picker-react';
 
 import { useEffect, useRef } from "react";
-import useCurrentNote from "../notes/hooks/useCurrentNote";
 import useTitleHandler from "./hooks/useTitleHandler";
 import useContentEditor from "./hooks/useContentEditor";
 import ContentReader from "./contentReader";
 import NoteInfo from "./noteInfo";
-import { isMobile } from "../../utils";
 
-export default function TextEditor() {
-
-  const {note, state, dispatch} = useCurrentNote();
-  const {isTextEditorOpen} = state.global;
-  const {isWide, isFullscreen} = state.textEditor.display;
+export default function TextEditor({note, setDisplay, isWide, isFullscreen}) {
   const {title, onFocus, handleFocusIn, handleFocusOut, handleTextChange} = useTitleHandler();
   const {saveContent, handleOnChange, isDirty} = useContentEditor();
 
@@ -53,20 +47,13 @@ export default function TextEditor() {
 
   const renderTitle = () => {
 
-    const setDisplay = (display) => {
-      dispatch({type : 'textEditor/display/update', payload : display});
-    }
-
     return (
       <div className="title">
         <div className="title-con flex-con">
           {!isFullscreen && (
             <div className="icon flex-con">
               <FontAwesomeIcon
-                onClick={() => {
-                  if(isMobile) dispatch({type : 'global/TextEditorOpen', payload : false});
-                  else setDisplay({ isWide: !isWide });
-                }}
+                onClick={() => setDisplay({ isWide: !isWide })}
                 className="selectable"
                 icon={isWide ? faArrowRight : faArrowLeft}
               />
