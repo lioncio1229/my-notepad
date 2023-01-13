@@ -116,6 +116,7 @@ export default function Main() {
     const cbDeleteNote = () => {
       dispatch({ type: "textEditor/dirty", payload: false });
       deleteNote(deleteCB.id);
+      isMobile && closeTextEditor(true);
     };
 
     return (
@@ -158,6 +159,7 @@ export default function Main() {
                 isFullscreen={isFullscreen}
                 closeTextEditor={closeTextEditor}
                 isMobile={isMobile}
+                deleteNote={handleNoteDelete}
               />
             )}
           </>

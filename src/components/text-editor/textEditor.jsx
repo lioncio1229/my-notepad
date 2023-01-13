@@ -4,7 +4,8 @@ import {
   faArrowLeft,
   faArrowRight,
   faUpRightAndDownLeftFromCenter,
-  faDownLeftAndUpRightToCenter
+  faDownLeftAndUpRightToCenter,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 
 // import Picker from 'emoji-picker-react';
@@ -21,6 +22,7 @@ export default function TextEditor({
   isWide,
   isFullscreen,
   closeTextEditor,
+  deleteNote,
   isMobile,
 }) {
   const { title, onFocus, handleFocusIn, handleFocusOut, handleTextChange } =
@@ -123,6 +125,12 @@ export default function TextEditor({
             dateCreated={note.dateCreated}
             lastModified={note.lastModified}
           />
+          {
+            isMobile && <> 
+              <div className="horizontal-divider"></div>
+              <FontAwesomeIcon icon={faTrash} className="icon selectable" onClick={() => deleteNote(note._id)}/>
+            </>
+          }
           {!isDirty && (
             <>
               <div className="horizontal-divider"></div>
