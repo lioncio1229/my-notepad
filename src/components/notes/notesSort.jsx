@@ -45,9 +45,9 @@ export default function NotesSort()
     }
     
     return (
-        <div className="sort">
+        <>
             {toggleMenu.isMenuOpen && options()}
             <FontAwesomeIcon ref={toggleMenu.buttonRef} onClick={toggleMenu.toggle} className="sort-button selectable" icon={faSort} />
-        </div>
+        </>
     )
 }

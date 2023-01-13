@@ -464,6 +464,8 @@ button:hover
     border: 1px solid var(--pallete4);
     border-top: none;
     margin-right: 2px;
+
+    position: relative;
 }
 
 /* #endregion */
@@ -809,11 +811,6 @@ button:hover
 /* #endregion */
 
 /* #region Sort */
-.sort
-{
-    position: relative;
-}
-
 .sort-button
 {
     color: var(--pallete4);
@@ -823,9 +820,8 @@ button:hover
 .sort-option
 {
     position: absolute;
-    top: -240px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 57px;
+    right: 10px;
 
     width: 170px;
     background-color: var(--pallete2);
