@@ -605,8 +605,6 @@ button:hover
 
 .paper
 {
-    position: absolute;
-    background-image: repeating-linear-gradient(white 0px, white 28px, var(--pallete4) 29px);
     line-height: 29px;
     width: 100%;
     min-height: 100%;
@@ -614,9 +612,9 @@ button:hover
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
-    color: var(--pallete4);
     outline: none;
     padding-left: 5px;
+    color: var(--pallete4);
 }
 
 .paper::selection
@@ -635,6 +633,15 @@ button:hover
 {
     background-color: var(--pallete4);
     color: white;
+}
+
+.paper-stripe-bg{
+    position: absolute;
+    background-image: repeating-linear-gradient(white 0px, white 28px, var(--pallete4) 29px);
+}
+
+.paper-white-bg{
+    background-color: white;
 }
 
 /* #endregion */

@@ -107,7 +107,7 @@ export default function TextEditor({
         <div className="viewport">
           <div
             id="paper"
-            className="paper"
+            className={"paper " + (isMobile ? "paper-white-bg" : "paper-stripe-bg")}
             contentEditable
             suppressContentEditableWarning
             onInput={handleOnChange}
