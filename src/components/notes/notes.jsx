@@ -23,6 +23,7 @@ export default function Notes({notes, onAddNote, onDeleteNote, onClickNote}) {
                   title={note.title}
                   onNoteClick={onClickNote}
                   onNoteDelete={onDeleteNote}
+                  isMobile={isMobile}
                 />
               })
           }
