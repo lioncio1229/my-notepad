@@ -60,7 +60,11 @@ export default function Main() {
   };
 
   const handleAddNote = () => {
-    if (!isNoteDirty()) createNote();
+    if (!isNoteDirty()) 
+    {
+      dispatch({type : 'global/TextEditorOpen', payload : true});
+      createNote();
+    }
   };
 
   const handleNoteClick = (id) => {
