@@ -14,3 +14,13 @@
 {
     width: 47%;
 }
+
+.mobile-content-reader{
+    position: static;
+}
+
+.mobile-content-reader-options{
+    left: 50%;
+    bottom: 65px;
+    transform: translateX(-50%);
+}

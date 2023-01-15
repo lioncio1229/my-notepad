@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import useToggleMenu from "./hooks/useToggleMenu";
+import { isMobile } from "../../utils";
 
 export default function ContentReader() {
 
@@ -49,7 +50,7 @@ export default function ContentReader() {
   const Options = () => {
 
     return (
-      <div ref={toggleMenu.menuRef} className="content-reader-options flex-con-2 fcol">
+      <div ref={toggleMenu.menuRef} className={"content-reader-options flex-con-2 fcol" + (isMobile ? ' mobile-content-reader-options' : '')}>
         <p>Voice</p>
 
         <select
@@ -101,7 +102,7 @@ export default function ContentReader() {
 
   return (
     <>
-      <div className="content-reader flex-con">
+      <div className={"content-reader flex-con" + (isMobile ? ' mobile-content-reader' : '')}>
         {toggleMenu.isMenuOpen && <Options/>}
 
         <FontAwesomeIcon
