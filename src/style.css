@@ -12,6 +12,7 @@ body
 {
     margin: 0;
     padding: 0;
+    width: 100vw;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
     background-color: var(--pallete1);
 }
@@ -380,7 +381,7 @@ button:hover
 .list
 {
     width: 100%;
-    height: 90%;
+    height: 99.5%;
     overflow: auto;
 }
 
@@ -456,13 +457,15 @@ button:hover
 
 .notes
 {
-    height: 91.2vh;
+    height: 99.5%;
     min-width: 350px;
     max-width: 350px;
     background-color: var(--pallete1);
     border: 1px solid var(--pallete4);
     border-top: none;
     margin-right: 2px;
+
+    position: relative;
 }
 
 /* #endregion */
@@ -604,8 +607,6 @@ button:hover
 
 .paper
 {
-    position: absolute;
-    background-image: repeating-linear-gradient(white 0px, white 28px, var(--pallete4) 29px);
     line-height: 29px;
     width: 100%;
     min-height: 100%;
@@ -613,9 +614,9 @@ button:hover
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
-    color: var(--pallete4);
     outline: none;
     padding-left: 5px;
+    color: var(--pallete4);
 }
 
 .paper::selection
@@ -634,6 +635,15 @@ button:hover
 {
     background-color: var(--pallete4);
     color: white;
+}
+
+.paper-stripe-bg{
+    position: absolute;
+    background-image: repeating-linear-gradient(white 0px, white 28px, var(--pallete4) 29px);
+}
+
+.paper-white-bg{
+    background-color: white;
 }
 
 /* #endregion */
@@ -801,11 +811,6 @@ button:hover
 /* #endregion */
 
 /* #region Sort */
-.sort
-{
-    position: relative;
-}
-
 .sort-button
 {
     color: var(--pallete4);
@@ -815,9 +820,8 @@ button:hover
 .sort-option
 {
     position: absolute;
-    top: -240px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 57px;
+    right: 10px;
 
     width: 170px;
     background-color: var(--pallete2);

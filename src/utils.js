@@ -21,3 +21,5 @@ export function today()
          return arrVersion.sort(sortFunc)
      return arrVersion;
  }
+
+ export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

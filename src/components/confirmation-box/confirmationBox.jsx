@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
+import { isMobile } from "../../utils";
 
 export default function ConfirmationBox({title='No Title', message='No Message', icon, onConfirm, onDeny, onClose})
 {    
@@ -21,7 +22,7 @@ export default function ConfirmationBox({title='No Title', message='No Message',
 
     return(
         <div className="blocker">
-            <div className="confirmation-box pos-abs-center">
+            <div className={"confirmation-box pos-abs-center "+(isMobile ? 'mobile-confirmationbox' : '')}>
                 <div className="flex-con">
                     <div className="flex-con">
                         {icon && <FontAwesomeIcon className="icon" icon={icon}/>}
@@ -33,8 +34,8 @@ export default function ConfirmationBox({title='No Title', message='No Message',
                 <div>{message}</div>
                 <div className="vertical-divider"></div>
                 <div className="flex-con-2">
-                    <button onClick={confirm} className="btn-m selectable">Yes</button>
-                    <button onClick={deny} className="btn-m selectable">No</button>
+                    <button onClick={confirm} className={"selectable btn-" + (isMobile ? 'mobile' : 'm')}>Yes</button>
+                    <button onClick={deny} className={"selectable btn-" + (isMobile ? 'mobile' : 'm')}>No</button>
                 </div>
             </div>
         </div>

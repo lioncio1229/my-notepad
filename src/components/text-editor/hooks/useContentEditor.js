@@ -11,6 +11,7 @@ export default function useContentEditor()
     useEffect(() => {
         if(!note) return;
         const paper = document.getElementById("paper");
+        if(!paper) return;
         if (paper.hasChildNodes) paper.innerHTML = "";
         paper.appendChild(stringToElement(note.content));
     }, [note]);

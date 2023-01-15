@@ -1,0 +1,26 @@
+.mobile-notes
+{
+    width: 100%;
+    max-width: none;
+    border: none;
+}
+
+.mobile-confirmationbox{
+    width: 80vw;
+    height: 50vw;
+}
+
+.btn-mobile
+{
+    width: 47%;
+}
+
+.mobile-content-reader{
+    position: static;
+}
+
+.mobile-content-reader-options{
+    left: 50%;
+    bottom: 65px;
+    transform: translateX(-50%);
+}
