@@ -4,3 +4,13 @@
     max-width: none;
     border: none;
 }
+
+.mobile-confirmationbox{
+    width: 80vw;
+    height: 50vw;
+}
+
+.btn-mobile
+{
+    width: 47%;
+}
