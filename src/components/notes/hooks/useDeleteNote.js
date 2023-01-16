@@ -14,7 +14,7 @@ export default function useDeleteNote()
         }
         
         dispatch({type : 'global/isLoading', payload : true});
-        const url = config[process.env.REACT_APP_ENVIRONMENT].api.notes + '/' +id;
+        const url = config[process.env.NODE_ENV].api.notes + '/' +id;
 
         axios({method : 'delete', url, withCredentials : true}).then(result => {
             if(result.status === 200)

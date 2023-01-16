@@ -16,7 +16,7 @@ const AccountMenu = React.forwardRef(({toggle}, ref) => {
     const {fetch} = useFetchUserData();
     const [isCBOpen, setCB] = useState(false);
     const clientId = process.env.REACT_APP_CLIENT_ID;
-    const apiUrl = config[process.env.REACT_APP_ENVIRONMENT].api;
+    const apiUrl = config[process.env.NODE_ENV].api;
 
     const {signIn} = useGoogleLogin({
         clientId,
