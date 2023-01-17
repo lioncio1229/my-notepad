@@ -11,7 +11,7 @@ export default function useFetchUserData()
     const fetch = () => {
         const list = {};
         dispatch({type : 'global/isLoading', payload : true});
-        const {user : userUrl} = config[process.env.NODE_ENV].api;
+        const {user : userUrl} = config[process.env.REACT_APP_ENVIRONMENT].api;
         
         axios.get(userUrl, {withCredentials : true}).then(result => {
             if(result.status !== 200){

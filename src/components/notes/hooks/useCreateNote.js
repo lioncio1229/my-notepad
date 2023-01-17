@@ -21,7 +21,7 @@ export default function useCreateNote()
         }
 
         dispatch({type : 'global/isLoading', payload : true});
-        const url = config[process.env.NODE_ENV].api.notes
+        const url = config[process.env.REACT_APP_ENVIRONMENT].api.notes
         axios({method : 'post', url , data : newNote, withCredentials : true}).then(result => {
             if(result.status === 200)
                 dispatch({type : 'notes/add', payload : result.data});

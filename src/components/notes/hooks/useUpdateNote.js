@@ -17,7 +17,7 @@ export default function useUpdateNote()
 
         dispatch({type : 'global/isLoading', payload : true});
 
-        const url = config[process.env.NODE_ENV].api.notes
+        const url = config[process.env.REACT_APP_ENVIRONMENT].api.notes
         axios({method : 'put', url, data : _note, withCredentials : true}).then(result => {
             if(result.status === 200)
                 dispatch({type : 'notes/update', payload : result.data});
