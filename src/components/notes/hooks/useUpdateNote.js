@@ -1,6 +1,5 @@
 import useStore from "../../../useStore";
 import { today } from "../../../utils";
-import config from '../../../config.json';
 import useAxiosSecured from "../../../useAxiosSecured";
 import { endpoints } from "../../../config";
 
