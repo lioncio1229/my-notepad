@@ -1,12 +1,13 @@
 import useStore from "../../../useStore";
-import axios from 'axios';
-import config from '../../../config.json';
+import useAxiosSecured from "../../../useAxiosSecured";
+import { endpoints } from "../../../config";
 import uuid from "react-uuid";
-
 
 export default function useCreateNote()
 {
     const {dispatch, state} = useStore();
+    const axiosSecured = useAxiosSecured();
+
     const newNote = {
         title : 'New Note',
         content : '',
@@ -21,8 +22,7 @@ export default function useCreateNote()
         }
 
         dispatch({type : 'global/isLoading', payload : true});
-        const url = config[process.env.NODE_ENV].api.notes
-        axios({method : 'post', url , data : newNote, withCredentials : true}).then(result => {
+        axiosSecured.post(endpoints.notes, newNote).then(result => {
             if(result.status === 200)
                 dispatch({type : 'notes/add', payload : result.data});
             dispatch({type : 'global/isLoading', payload : false});

@@ -3,7 +3,7 @@ export const endpoints = {
   validation: "/api/account/validate",
   newTokenId: '/api/account/newTokenId',
   user: "/api/user",
-  notes: "/api/notes"
+  notes: "/api/notes",
 };
 
 export const baseUrl =
