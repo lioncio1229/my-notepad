@@ -1,7 +1,8 @@
 {
     "development" : {
         "api" : {
-            "googleOAuth" : "http://localhost:3000/api/v1/auth/google",
+            "googleOAuth" : "http://localhost:3000/api/client/auth",
+            "validation" : "http://localhost:3000/api/client/validation",
             "user" : "http://localhost:3000/api/user",
             "notes" : "http://localhost:3000/api/notes"
         }

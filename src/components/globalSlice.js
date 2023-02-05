@@ -4,6 +4,7 @@ export const initialState = {
     isGuestMode : false,
     isTextEditorOpen : false, //For mobile use
     account : {
+        tokenId: '',
         picture : undefined
     }
 }
@@ -21,6 +22,7 @@ export default function globalReducer(state, action)
             return {
                 ...state,
                 account : {
+                    ...state.account,
                     picture : action.payload.picture
                 }
             };
@@ -33,6 +35,14 @@ export default function globalReducer(state, action)
             return {
                 ...state,
                 isTextEditorOpen : action.payload
+            }
+        case 'global/setTokenId':
+            return {
+                ...state,
+                account : {
+                    ...state.account,
+                    tokenId: action.payload
+                }
             }
         default:
             return state;
