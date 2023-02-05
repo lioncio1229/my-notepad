@@ -7,14 +7,25 @@ import axios from '../api/axios'
 import { endpoints } from "../config";
 import { useNavigate } from "react-router-dom";
 import useStore from "../useStore";
+import useRefreshToken from "../useRefreshToken";
 
 const LandingPage = () => {
     const {dispatch} = useStore();
+    const refreshToken = useRefreshToken();
     const navigate = useNavigate();
 
-    const onLogin = (res) => {
-        console.log('Login Result :', res);
+    useEffect(() => {
+        dispatch({type : 'notes/setEmpty'});
+        dispatch({type : 'global/setAccount', payload : {picture : undefined}});
+    }, []);
+    
+    useEffect(() => {
+        refreshToken().then(res => {
+            res && navigate('/textEditor');
+        });
+    });
 
+    const onLogin = (res) => {
         axios.post(
             endpoints.authentication,
             { authCode: res.code },
@@ -26,7 +37,6 @@ const LandingPage = () => {
             }
           )
           .then((result) => {
-            console.log("result: ", result);
             dispatch({ type: "global/setTokenId", payload: result.data });
             dispatch({ type: "global/setGuestMode", payload: false });
             navigate(`/texteditor`);
@@ -38,11 +48,6 @@ const LandingPage = () => {
         flow: 'auth-code',
         redirect_uri: 'postmessage'
     });
-    
-    useEffect(() => {
-        dispatch({type : 'notes/setEmpty'});
-        dispatch({type : 'global/setAccount', payload : {picture : undefined}});
-    }, []);
 
     return (<div className="landing-page">
         <div className="animated-bg">
