@@ -6,7 +6,7 @@ const useRefreshToken = () => {
     const {dispatch} = useStore();
 
     const refresh = async () => {
-        const response = await axios.post(endpoints.newTokenId, {
+        const response = await axios.post(endpoints.newTokenId, {}, {
             withCredentials: true
         });
         const tokenId = response.data;
