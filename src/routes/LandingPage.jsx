@@ -1,36 +1,53 @@
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { GoogleLogin } from "react-google-login";
-import axios from "axios";
+import { useGoogleLogin } from '@react-oauth/google';
+
+import axios from '../api/axios'
+import { endpoints } from "../config";
 import { useNavigate } from "react-router-dom";
-import config from '../config.json';
 import useStore from "../useStore";
+import useRefreshToken from "../useRefreshToken";
 
 const LandingPage = () => {
-
-    const clientId = process.env.REACT_APP_CLIENT_ID;
     const {dispatch} = useStore();
+    const refreshToken = useRefreshToken();
     const navigate = useNavigate();
 
     useEffect(() => {
         dispatch({type : 'notes/setEmpty'});
         dispatch({type : 'global/setAccount', payload : {picture : undefined}});
     }, []);
+    
+    useEffect(() => {
+        refreshToken().then(res => {
+            res && navigate('/textEditor');
+        });
+    });
 
     const onLogin = (res) => {
-        console.log('Login Result :', res);
-
-        axios({
-          method: "post",
-          url: config[process.env.NODE_ENV].api.googleOAuth,
-          data: { token: res.tokenId },
-          withCredentials: true,
-        }).then((res) => {
-            dispatch({type : 'global/setGuestMode', payload : false});
+        axios.post(
+            endpoints.authentication,
+            { authCode: res.code },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          )
+          .then((result) => {
+            dispatch({ type: "global/setTokenId", payload: result.data });
+            dispatch({ type: "global/setGuestMode", payload: false });
             navigate(`/texteditor`);
-        });
+          });
     };
+
+    const login = useGoogleLogin({
+        onSuccess: onLogin,
+        flow: 'auth-code',
+        redirect_uri: 'postmessage'
+    });
 
     return (<div className="landing-page">
         <div className="animated-bg">
@@ -46,19 +63,10 @@ const LandingPage = () => {
             </svg>
         </div>
         <div className="flex-con fcol">
-            <GoogleLogin 
-                clientId={clientId}
-                render={ renderProps => (
-                    <button className="lp-btn btn-xl selectable" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                        <img className="icon" src="./google-logo.png" alt="google-logo.png" width={30} height={'auto'} />
-                        <p> Continue with Google Account </p>
-                    </button>)
-                }
-                onSuccess={onLogin}
-                onFailure={onLogin}
-                cookiePolicy={'single_host_origin'}
-                isSignedIn={true}
-            />
+            <button className="lp-btn btn-xl selectable" onClick={() => login()}>
+                <img className="icon" src="./google-logo.png" alt="google-logo.png" width={30} height={'auto'} />
+                <p> Continue with Google Account </p>
+            </button>
             <button className="lp-btn btn-xl selectable" onClick={() => navigate("/texteditor")}>
                 <FontAwesomeIcon className="icon" icon={faUser} />
                 <p> Continue as a guest </p>

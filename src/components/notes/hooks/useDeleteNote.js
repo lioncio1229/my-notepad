@@ -1,10 +1,11 @@
 import useStore from "../../../useStore";
-import axios from 'axios';
-import config from '../../../config.json';
+import useAxiosSecured from "../../../useAxiosSecured";
+import { endpoints } from "../../../config";
 
 export default function useDeleteNote()
 {
     const {dispatch, state} = useStore();
+    const axiosSecured = useAxiosSecured();
 
     const deleteNote = (id) => {
         if(state.global.isGuestMode)
@@ -14,9 +15,9 @@ export default function useDeleteNote()
         }
         
         dispatch({type : 'global/isLoading', payload : true});
-        const url = config[process.env.NODE_ENV].api.notes + '/' +id;
+        const endpoint = endpoints.notes + '/' +id;
 
-        axios({method : 'delete', url, withCredentials : true}).then(result => {
+        axiosSecured.delete(endpoint, {withCredentials : true}).then(result => {
             if(result.status === 200)
                 dispatch({type : 'global/isLoading', payload : false});
             dispatch({type : 'notes/delete', payload : id});
