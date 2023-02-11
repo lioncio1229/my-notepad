@@ -20,12 +20,16 @@ const LandingPage = () => {
     }, []);
     
     useEffect(() => {
+        dispatch({type : 'global/isLoading', payload : true});
         refreshToken().then(res => {
+            dispatch({type : 'global/isLoading', payload : false});
             res && navigate('/textEditor');
-        });
-    });
+        })
+        .catch(e => dispatch({type : 'global/isLoading', payload : false}));
+    }, []);
 
     const onLogin = (res) => {
+        dispatch({type : 'global/isLoading', payload : true});
         axios.post(
             endpoints.authentication,
             { authCode: res.code },
@@ -37,10 +41,12 @@ const LandingPage = () => {
             }
           )
           .then((result) => {
+            dispatch({type : 'global/isLoading', payload : false});
             dispatch({ type: "global/setTokenId", payload: result.data });
             dispatch({ type: "global/setGuestMode", payload: false });
             navigate(`/texteditor`);
-          });
+          })
+          .catch(e => dispatch({type : 'global/isLoading', payload : false}));
     };
 
     const login = useGoogleLogin({

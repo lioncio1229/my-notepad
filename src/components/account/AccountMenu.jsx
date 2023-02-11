@@ -19,6 +19,7 @@ const AccountMenu = React.forwardRef(({toggle}, ref) => {
 
     const onLogin = (res) => {
         toggle && toggle();
+        dispatch({ type: "global/isLoading", payload: true });
         axios.post(
             endpoints.authentication,
             { authCode: res.code },
@@ -37,6 +38,8 @@ const AccountMenu = React.forwardRef(({toggle}, ref) => {
             }).catch((e) => console.log(e.message));
         })
         .catch((e) => {
+            dispatch({ type: "global/isLoading", payload: false });
+
             console.log(e.message);
         });
     }
@@ -53,14 +56,17 @@ const AccountMenu = React.forwardRef(({toggle}, ref) => {
     const navigate = useNavigate();
 
     const logout = () => {
+        dispatch({ type: "global/isLoading", payload: true });
         axiosSecured.post(endpoints.logout).then(result => {
             if(result.status === 200) {
                 googleLogout();
                 dispatch({type : 'notes/setEmpty'});
                 dispatch({type : 'global/setGuestMode', payload : false});
+                dispatch({ type: "global/isLoading", payload: false });
                 navigate('/');
             }
-        });
+        })
+        .catch(e => dispatch({ type: "global/isLoading", payload: false }));
     }
 
     if(isGuestMode)
