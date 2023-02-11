@@ -8,6 +8,11 @@ export const endpoints = {
   addNotes: "/api/notes/addnotes",
 };
 
+export const loadingCircle = {
+  message: 'This is taking too long to load',
+  timeout: 12000,
+};
+
 export const baseUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"

@@ -5,6 +5,7 @@ import useStore from "../useStore";
 import Header from "../components/header";
 import Notes from "../components/notes";
 import TextEditor from "../components/text-editor";
+import LoadingCircle from "../components/loading-circle";
 import useFetchUserData from "../useFetchUserData";
 import useCreateNote from '../components/notes/hooks/useCreateNote';
 import ConfirmationBox from "../components/confirmation-box/confirmationBox";
@@ -134,6 +135,7 @@ export default function Main() {
     <>
       {saveCB.isOn && saveConfirmationBox()}
       {deleteCB.isOn && deleteConfirmationBox()}
+      <LoadingCircle />
 
       <div className="main flex-con fcol">
         {isMobile ? (
