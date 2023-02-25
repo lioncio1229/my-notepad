@@ -18,6 +18,8 @@ const Provider = React.memo(({children}) => {
     );
 
     useEffect(() => {
+        if(state.global.isGuestMode || !gapi.client) return;
+
         const initClient = () => {
             gapi.client.init({
               clientId: process.env.REACT_APP_CLIENT_ID,
